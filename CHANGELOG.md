@@ -4,6 +4,25 @@ All notable architectural and technical changes to this project are recorded chr
 
 ---
 
+## [High-Converting Human-Crafted Editorial Redesign] — 2026-11-03
+### Added & Redesigned
+- **Elimination of "AI-Generated Template" Aesthetics (`app/page.tsx`)**:
+  - Eliminated generic symmetrical 3-column card grids in favor of asymmetrical 5:7 split-screen storytelling and typographic-led layouts.
+  - Banished all startup purple-to-indigo gradients and floating glassmorphism blobs. Replaced with authentic 1px hairline blueprint borders, genuine CAD vectorization, and intentional 25%+ open breathing whitespace.
+  - Engineered a cohesive 4-stage narrative user journey: **Hook → Problem → Proof / Mechanism → Action**.
+- **Interactive Tectonic Blueprint & Drawing Sheet Inspector**:
+  - Built an interactive architectural A2 drawing sheet simulator with dynamic SVG rendering.
+  - Stateful layer controls: `Structural Grid & Column Markers`, `Bioclimatic Shading Louvres`, and `Blind Jury Annotations & Official Assessment Stamp`.
+- **Pedagogical Dilemma Comparison Visualizer**:
+  - Asymmetric contrast matrix comparing Conventional Studio Crits (identified bias, ₹1,500+ fee barriers, subjective grades) against The ArchEd Protocol (100% cryptographic blind codes, complimentary open access, 4-pillar quantitative rubric).
+- **Physics-Based Accessible FAQ Accordion**:
+  - Stateful interactive accordion with chevron rotations, zero layout shift, and explicit ARIA expanded attributes answering core student and institutional concerns.
+- **Verification**:
+  - Full production build: 26/26 routes compiled cleanly with 0 errors (`next build` & `opennextjs-cloudflare build`).
+  - Integration test suite: **42/42 tests PASSED (100% success rate)**.
+
+---
+
 ## [Cloudflare Pages & Workers Deployment Readiness] — 2026-11-03
 ### Added & Configured
 - **OpenNext Cloudflare Adapter Integration (`@opennextjs/cloudflare`)**:

@@ -161,39 +161,39 @@ export default function HomePage() {
           SECTION 1: THE HOOK (Typographic Architectural Cinema Hero)
           Asymmetrical split with open breathing room, genuine video loop & technical telemetry
           ========================================================================= */}
-      <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden bg-[#14181d] text-white">
-        {/* Fullscreen Looping YouTube Video Embed */}
+      <section className="relative min-h-[92vh] sm:min-h-screen flex items-center justify-center overflow-hidden bg-[#14181d] text-white">
+        {/* Fullscreen Responsive Looping YouTube Video Embed (Mobile Portrait & Desktop) */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <iframe
             src={`https://www.youtube-nocookie.com/embed/uySn1BZiWWs?autoplay=1&mute=${
               isMuted ? "1" : "0"
-            }&controls=0&showinfo=0&rel=0&loop=1&playlist=uySn1BZiWWs&disablekb=1&modestbranding=1&playsinline=1`}
+            }&controls=0&showinfo=0&rel=0&loop=1&playlist=uySn1BZiWWs&disablekb=1&modestbranding=1&playsinline=1&enablejsapi=1`}
             title="Architectural Atmosphere Background Video"
-            className="w-full h-full min-w-full min-h-full object-cover scale-[1.3] origin-center opacity-80"
+            className="hero-video-embed opacity-85"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           />
         </div>
 
         {/* Fallback Architectural Texture */}
         <div 
-          className="absolute inset-0 -z-10 bg-cover bg-center opacity-25"
+          className="absolute inset-0 -z-10 bg-cover bg-center opacity-30"
           style={{
             backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80')`,
           }}
         />
 
-        {/* Charcoal & Deep Slate Gradient Framing */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#14181d]/80 via-[#18202a]/65 to-[#14181d]/95" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#14181d] to-transparent" />
+        {/* Charcoal & Deep Slate Gradient Framing — Atmospheric on Mobile & Desktop */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#14181d]/60 via-[#18202a]/45 to-[#14181d]/85" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#14181d] to-transparent" />
 
         {/* Hero Content — Asymmetrical Typographic Split */}
-        <div className="relative max-w-7xl mx-auto px-6 md:px-12 pt-36 pb-20 w-full z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+        <div className="relative max-w-7xl mx-auto px-6 md:px-12 pt-24 sm:pt-32 lg:pt-36 pb-16 sm:pb-20 w-full z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
             
             {/* Left 8 Columns: Hook & Narrative */}
-            <div className="lg:col-span-8 space-y-6">
+            <div className="lg:col-span-8 space-y-5 sm:space-y-6">
               {/* Telemetry Badge */}
-              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 bg-[#1e2632]/90 border border-slate-600/70 text-slate-200 text-xs font-mono uppercase tracking-widest">
+              <div className="inline-flex items-center gap-2.5 px-3 py-1.5 bg-[#1e2632]/90 border border-slate-600/70 text-slate-200 text-[10px] sm:text-xs font-mono uppercase tracking-widest">
                 <span className="w-2 h-2 bg-[#a10f0f] rounded-full animate-ping"></span>
                 <span className="text-[#38bdf8] font-bold">LIVE BRIEF</span>
                 <span className="text-slate-400">&bull;</span>
@@ -201,7 +201,7 @@ export default function HomePage() {
               </div>
 
               {/* Display Headline with Clamp Sizing & Editorial Serif */}
-              <h1 className="text-[clamp(2.5rem,5.2vw,4.75rem)] font-light tracking-tight text-white leading-[1.04]">
+              <h1 className="text-[clamp(2.15rem,5.2vw,4.75rem)] font-light tracking-tight text-white leading-[1.06]">
                 The discipline of architecture,
                 <br />
                 <span className="font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-white via-[#f1f5f9] to-[#93c5fd]">
@@ -210,22 +210,22 @@ export default function HomePage() {
               </h1>
 
               {/* High-Intent Value Proposition */}
-              <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl font-light">
+              <p className="text-sm sm:text-base lg:text-lg text-slate-300 leading-relaxed max-w-2xl font-light">
                 ArchEd is India&apos;s educational ecosystem for architecture students — bridging academic inquiry with real-world studio practice through 100% blind-evaluated design competitions, WebGL spatial environments, and peer critiques.
               </p>
 
-              {/* Action Buttons — High Contrast, Crisp Hairlines */}
-              <div className="pt-4 flex flex-wrap items-center gap-4">
+              {/* Action Buttons — High Contrast, Mobile Responsive Stack */}
+              <div className="pt-3 sm:pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
                 <Link
                   href="/competition/register"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#155995] border border-[#2b72b3] text-white text-xs font-semibold uppercase tracking-wider hover:bg-[#104778] transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 bg-[#155995] border border-[#2b72b3] text-white text-xs font-semibold uppercase tracking-wider hover:bg-[#104778] transition-colors w-full sm:w-auto"
                 >
                   <span>Register Candidate Profile (Free Access)</span>
                   <ArrowUpRight className="w-4 h-4 text-white" />
                 </Link>
                 <Link
                   href="/competition"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 bg-white/95 text-[#155995] text-xs font-semibold uppercase tracking-wider hover:bg-white hover:text-[#0d3b66] transition-colors border border-white"
+                  className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 bg-white/95 text-[#155995] text-xs font-semibold uppercase tracking-wider hover:bg-white hover:text-[#0d3b66] transition-colors border border-white w-full sm:w-auto"
                 >
                   <span>Explore Competition Brief</span>
                   <ArrowRight className="w-4 h-4 text-[#155995]" />
@@ -234,7 +234,7 @@ export default function HomePage() {
             </div>
 
             {/* Right 4 Columns: Architectural Sheet Telemetry Stamp */}
-            <div className="lg:col-span-4 bg-[#18202a]/85 border border-slate-700/80 p-6 space-y-4 font-mono text-xs text-slate-300 backdrop-blur-none">
+            <div className="lg:col-span-4 bg-[#18202a]/85 border border-slate-700/80 p-5 sm:p-6 space-y-4 font-mono text-xs text-slate-300 backdrop-blur-none">
               <div className="flex items-center justify-between border-b border-slate-700/70 pb-3">
                 <span className="text-slate-400 uppercase tracking-widest text-[10px]">Ecosystem Protocol</span>
                 <span className="text-[#38bdf8] font-bold">ACAD-2026-V1</span>
@@ -267,12 +267,12 @@ export default function HomePage() {
         </div>
 
         {/* Ambient Video Sound Control */}
-        <div className="absolute bottom-6 right-6 flex items-center gap-3 z-20">
+        <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 flex items-center gap-3 z-20">
           <button
             type="button"
             onClick={() => setIsMuted(!isMuted)}
             aria-label={isMuted ? "Unmute background sound" : "Mute background sound"}
-            className="inline-flex items-center gap-2 px-3 py-1.5 border border-slate-600/70 bg-[#18202a]/90 text-white hover:bg-slate-700 transition-colors cursor-pointer text-xs font-mono"
+            className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1.5 border border-slate-600/70 bg-[#18202a]/90 text-white hover:bg-slate-700 transition-colors cursor-pointer text-xs font-mono"
           >
             {isMuted ? (
               <>

@@ -4,7 +4,19 @@ All notable architectural and technical changes to this project are recorded chr
 
 ---
 
-## [Guiding Voices 30-Second Auto-Slide Carousel] — 2026-11-03
+## [Full-Bleed Responsive Mobile Video Background] — 2026-11-03
+### Added & Updated
+- **True Aspect-Ratio Cover for Mobile Viewports (`app/globals.css`, `app/page.tsx`)**:
+  - Implemented `.hero-video-embed` with responsive aspect-ratio media queries (`@media (max-aspect-ratio: 16/9)` and `@media (min-aspect-ratio: 16/9)`).
+  - Eliminates all mobile portrait letterboxing and dark bars: dynamically expands iframe width to `177.78vh` on mobile portrait so the 16:9 YouTube video covers 100% of the screen height seamlessly from header to footer with zero black borders.
+  - Added `playsinline=1` and `enablejsapi=1` parameters for immediate inline playback on mobile browsers without native player modal takeovers.
+  - Optimized mobile padding (`pt-24 sm:pt-32 lg:pt-36`) and responsive button stacking (`w-full sm:w-auto` with `flex-col sm:flex-row`) for ergonomic mobile thumb reachability.
+  - Tuned atmospheric gradient scrim (`from-[#14181d]/60 via-[#18202a]/45 to-[#14181d]/85`) for vibrant video clarity behind high-contrast editorial typography.
+- **Verification**:
+  - Full production build: 26/26 routes compiled cleanly with 0 errors (`next build`).
+  - Integration test suite: **42/42 tests PASSED (100% success rate)**.
+
+---
 ### Added & Updated
 - **30-Second Auto-Slide Rotation Engine (`app/page.tsx`, `app/globals.css`)**:
   - Implemented an automated 30,000ms timer interval that cycles through the 5 master architectural quotes (*Le Corbusier, Norman Foster, Nari Gandhi, B.V. Doshi, and Raj Rewal*).

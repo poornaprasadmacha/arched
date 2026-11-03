@@ -4,7 +4,20 @@ All notable architectural and technical changes to this project are recorded chr
 
 ---
 
-## [Full-Bleed Responsive Mobile Video Background] — 2026-11-03
+## [Dynamic Directional Scroll-Responsive Navigation Header] — 2026-11-03
+### Added & Updated
+- **Scroll-Direction Responsive Header Visibility (`components/Header.tsx`)**:
+  - Implemented smart directional scroll tracking:
+    - **Scrolling Down (`currentScrollY > lastScrollY`)**: Header smoothly slides down into view (`translate-y-0 opacity-100`) as a sticky top navigation bar with full access to all links, portal access, and registration.
+    - **Scrolling Up (`currentScrollY < lastScrollY`)**: Header smoothly slides out of view (`-translate-y-full opacity-0 pointer-events-none`) for an unobstructed, distraction-free reading experience.
+    - **Top of Homepage Threshold (`scrollY <= 20`)**: Header is hidden on the homepage so the hero video and headline enjoy 100% full-screen immersive viewport real estate.
+    - **Inner Page Compatibility**: Added automatic layout spacer on non-homepage routes so inner page content is never covered, with immediate top-level visibility at `scrollY <= 20`.
+    - **Active Drawer Protection**: When the mobile drawer is open, the header remains pinned in place regardless of scroll interactions.
+- **Verification**:
+  - Full production build: 26/26 routes compiled cleanly with 0 errors (`next build`).
+  - Integration test suite: **42/42 tests PASSED (100% success rate)**.
+
+---
 ### Added & Updated
 - **True Aspect-Ratio Cover for Mobile Viewports (`app/globals.css`, `app/page.tsx`)**:
   - Implemented `.hero-video-embed` with responsive aspect-ratio media queries (`@media (max-aspect-ratio: 16/9)` and `@media (min-aspect-ratio: 16/9)`).

@@ -1,9 +1,19 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Phone, Mail, MapPin } from "lucide-react";
 import ArchedLogo from "./ArchedLogo";
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  // Do not show public footer on admin pages
+  if (pathname?.startsWith("/dashboard/admin") || pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <footer className="relative bg-[#111111] text-neutral-300 border-t border-neutral-800">
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-16">

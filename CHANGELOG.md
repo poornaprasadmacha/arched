@@ -4,6 +4,19 @@ All notable architectural and technical changes to this project are recorded chr
 
 ---
 
+## [Admin Layout Isolation — Header & Footer Suppression] — 2026-11-03
+### Updated
+- **Suppression of Public Navigation & Footer on Admin Pages (`components/Header.tsx`, `components/Footer.tsx`)**:
+  - Configured conditional layout checks utilizing `usePathname()`.
+  - Suppressed the public navigation header and public Ceeras-style footer on `/dashboard/admin` and `/admin` routes.
+  - Granted the Admin Portal 100% full-screen dedicated real estate for its standalone login terminal, executive header bar, OpenStreetMap geolocation interface, and real-time database registers.
+- **Verification**:
+  - Full production build: 26/26 routes compiled cleanly with 0 errors.
+  - Test validation: Confirmed Header and Footer are completely absent on `/dashboard/admin` while remaining fully operational across all public pages.
+  - Automated integration test suite: **42/42 tests PASSED (100% success rate)**.
+
+---
+
 ## [High-Converting Human-Crafted Editorial Redesign] — 2026-11-03
 ### Added & Redesigned
 - **Elimination of "AI-Generated Template" Aesthetics (`app/page.tsx`)**:

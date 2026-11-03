@@ -10,6 +10,11 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
+  // Do not show public header on admin pages
+  if (pathname?.startsWith("/dashboard/admin") || pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   const navLinks = [
     { label: "About", href: "/about" },
     { label: "What We Do", href: "/what-we-do" },

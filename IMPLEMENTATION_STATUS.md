@@ -17,6 +17,7 @@ Status categories: `Not Started` | `In Progress` | `Implemented` | `Tested` | `N
 | Ceeras.in Styled Footer | Implemented & Tested | Matches `ceeras.in` structure in `components/Footer.tsx`: brand logo & tagline, 3 columns (Quick Links, Support, Contact with telephone `+91 93728 25114`, email `support@arched.in`, location `Tirupati, Andhra Pradesh, India`, and WhatsApp/LinkedIn SVGs), and clean copyright bar. Zero legal clutter. |
 | Neon Managed Better Auth & Google OAuth | Implemented & Tested | Configured to user's live branch `https://ep-green-darkness-az4sl6f1.neonauth.c-3.ap-southeast-1.aws.neon.tech/neondb/auth`. Proven real user sign-up and session retrieval (`test-neon-auth.js`: HTTP 200 OK). Google OAuth provider configured. |
 | Neon Serverless PostgreSQL & Drizzle ORM | Implemented & Tested | Extended schema with `participantRegistrations` table supporting geolocation (`lat`/`lng`), colleges, and automated codes (`ARCH-2026-XXXX`). In-memory backing cache in `lib/data/registrations-store.ts`. |
+| Cloudflare Workers & Pages Deployment | Implemented & Tested | Configured with `@opennextjs/cloudflare` and `wrangler`. Verified complete production build (`opennextjs-cloudflare build`) compiling 26 routes with 0 errors into `.open-next/worker.js` and `.open-next/assets`. Verified `wrangler deploy --dry-run` successfully reading 92 assets (5.59 MB) with active `env.ASSETS` bindings. Cloudflare Git CI/CD and Wrangler CLI deployment ready. |
 
 ---
 

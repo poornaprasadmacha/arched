@@ -107,3 +107,4 @@ Every legacy URL is supported alongside clean modern routes:
 - **Maps**: Leaflet.js with standard OpenStreetMap (OSM) tiles for participant origin tracking (zero API key prompts).
 - **Validation**: Zod schema validation for all frontend and API inputs.
 - **API Architecture**: RESTful API endpoints under `/api/v1/...` for web and administrative systems.
+- **Edge Deployment**: Cloudflare Workers & Pages via `@opennextjs/cloudflare` and `wrangler` CLI (`wrangler deploy` / `npm run deploy`). Zero cold starts, global edge caching, and asset binding.

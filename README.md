@@ -69,6 +69,42 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
+## ☁️ Cloudflare Deployment
+
+ArchEd is fully configured for zero-cold-start edge deployment on **Cloudflare Workers & Pages** powered by `@opennextjs/cloudflare` and `wrangler`.
+
+### Option A: Direct Deployment via Wrangler CLI
+```bash
+# 1. Authenticate with your Cloudflare account (one-time)
+npx wrangler login
+
+# 2. Build the optimized Cloudflare worker bundle
+npm run cloudflare:build
+
+# 3. Preview locally inside the Cloudflare Workerd edge runtime
+npm run preview
+
+# 4. Deploy directly to Cloudflare
+npm run deploy
+# Or directly via Wrangler
+npx wrangler deploy
+```
+
+### Option B: Cloudflare Pages Git-Connected CI/CD
+1. In Cloudflare Dashboard, go to **Compute (Workers & Pages)** > **Create** > **Pages** > **Connect to Git**.
+2. Select repository: `https://github.com/poornaprasadmacha/arched.git`.
+3. Build Settings:
+   - **Framework Preset**: `None` or `Next.js`
+   - **Build Command**: `npx opennextjs-cloudflare build`
+   - **Build Output Directory**: `.open-next/assets`
+   - **Root Directory**: `/`
+4. Environment Variables:
+   - `NODE_VERSION`: `20`
+   - `DATABASE_URL`: `postgresql://neondb_owner:npg_gNl9QJ5sXyqC@ep-green-darkness-az4sl6f1.neonauth.c-3.ap-southeast-1.aws.neon.tech/neondb?sslmode=require`
+   - `NEON_AUTH_BASE_URL`: `https://ep-green-darkness-az4sl6f1.neonauth.c-3.ap-southeast-1.aws.neon.tech/neondb/auth`
+
+---
+
 ## 🔒 Portals & Access Credentials
 - **Public Portal**: [http://localhost:3000](http://localhost:3000)
 - **Competition Registration**: [http://localhost:3000/competition/register](http://localhost:3000/competition/register)

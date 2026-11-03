@@ -4,6 +4,26 @@ All notable architectural and technical changes to this project are recorded chr
 
 ---
 
+## [Cloudflare Pages & Workers Deployment Readiness] — 2026-11-03
+### Added & Configured
+- **OpenNext Cloudflare Adapter Integration (`@opennextjs/cloudflare`)**:
+  - Integrated Cloudflare's official Next.js 15 adapter (`@opennextjs/cloudflare` v1.20.15) with OpenNext v4 engine.
+  - Created `open-next.config.ts` configuring standard Cloudflare edge runtime integration with `defineCloudflareConfig`.
+  - Created `wrangler.jsonc` specifying Cloudflare Workers & Pages asset bindings (`env.ASSETS`), compatibility flags (`nodejs_compat`), and compatibility date (`2024-09-23`).
+  - Added build and deployment convenience scripts to `package.json`:
+    - `npm run cloudflare:build` (`opennextjs-cloudflare build`)
+    - `npm run preview` (`opennextjs-cloudflare preview`)
+    - `npm run deploy` (`opennextjs-cloudflare deploy`)
+- **Cloudflare Static Assets & Edge Worker Bundle Generation**:
+  - Successfully compiled all 26 static pages, dynamic route handlers, and server actions into `.open-next/worker.js` and `.open-next/assets`.
+  - Configured `.gitignore` to safely exclude `.open-next/`, `.wrangler/`, and `.vercel/` build output caches.
+- **Verification**:
+  - `opennextjs-cloudflare build`: **Exit Code 0** (26/26 routes bundled into Cloudflare worker).
+  - `wrangler deploy --dry-run`: **Exit Code 0** (92 static assets validated, total upload 5.59 MB, asset binding verified).
+  - Automated integration test suite: **42/42 tests PASSED (100% success rate)**.
+
+---
+
 ## [Homepage Color Harmonization & Gradual Silver Polish Sheen] — 2026-11-03
 ### Added & Updated
 - **Gradual Silver Polish Ambient Background (`app/globals.css`, `app/page.tsx`)**:

@@ -13,6 +13,9 @@
 # Production build
 /build
 dist
+.vercel
+.wrangler
+.open-next
 
 # Environment variables
 .env*.local

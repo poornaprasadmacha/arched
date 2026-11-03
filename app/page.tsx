@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { 
   ArrowUpRight, 
@@ -27,6 +27,8 @@ import ArchedLogo from "@/components/ArchedLogo";
 export default function HomePage() {
   const [isMuted, setIsMuted] = useState(true);
   const [activeVoiceIndex, setActiveVoiceIndex] = useState(0);
+  const [isQuotePaused, setIsQuotePaused] = useState(false);
+  const [quoteTimerKey, setQuoteTimerKey] = useState(0);
   
   // Interactive Blueprint Layer toggles
   const [showGrid, setShowGrid] = useState(true);
@@ -35,6 +37,23 @@ export default function HomePage() {
 
   // FAQ Accordion state
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+
+  // Auto-slide quotes every 30 seconds
+  useEffect(() => {
+    if (isQuotePaused) return;
+
+    const interval = setInterval(() => {
+      setActiveVoiceIndex((prev) => (prev + 1) % 5);
+      setQuoteTimerKey((k) => k + 1);
+    }, 30000); // 30 seconds auto-rotation
+
+    return () => clearInterval(interval);
+  }, [isQuotePaused, activeVoiceIndex]);
+
+  const handleSelectVoice = (idx: number) => {
+    setActiveVoiceIndex(idx);
+    setQuoteTimerKey((k) => k + 1);
+  };
 
   const theorists = [
     {
@@ -61,7 +80,7 @@ export default function HomePage() {
       tag: "Organic Simplicity",
       quote:
         "Simplicity is not the absence of clutter; it is the realization of the absolute essential.",
-      context: "Organic masonry, local stone tectonics, and uncluttered spatial flow without geometric dogma.",
+      context: "Organic masonry, local stone tectonics, and uncluttered spatial flow.",
       concept: "Vernacular Tectonics",
     },
     {
@@ -70,7 +89,7 @@ export default function HomePage() {
       tag: "Living State of Being",
       quote:
         "Design is nothing but a humble understanding of materials, light, and the life that flows within them.",
-      context: "Pritzker-laureate spatial ethos: community porosity, shaded verandas, and microclimate courtyards.",
+      context: "Pritzker-laureate spatial ethos: community porosity, verandas, and shaded microclimates.",
       concept: "Human Porosity",
     },
     {
@@ -79,7 +98,7 @@ export default function HomePage() {
       tag: "Contextual Essence",
       quote:
         "A building must absorb the essence of the place in which it stands, its climate, its culture, and its memory.",
-      context: "Structural geometry rooted in historical urban fabric, clustered courtyards, and deep sandstone jaalis.",
+      context: "Geometry rooted in historical urban fabric, courtyards, and deep sandstone louvres.",
       concept: "Contextual Jaali",
     },
   ];
@@ -725,75 +744,77 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================================
-          SECTION 4: SOCIAL PROOF & VOICES OF PEDAGOGY (Spatial Philosophies)
-          Interactive Master Architect Quote Matrix
+          SECTION 4: GUIDING VOICES (Quotes Auto-Sliding Every 30 Seconds)
           ========================================================================= */}
-      <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <section className="py-20 px-6 md:px-12 max-w-7xl mx-auto w-full">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
           
-          {/* Left 4 Columns: Philosophy Overview & Selector */}
-          <div className="lg:col-span-4 space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-[#dbe2e8] text-[11px] font-mono uppercase tracking-widest text-[#155995]">
-              <span>03 / Voices of Pedagogy</span>
-            </div>
-            
-            <h2 className="text-3xl font-light tracking-tight text-[#1e293b]">
-              The Philosophies of Spatial Honesty
+          {/* Left Column: Guiding Voices Overview & Theorist Buttons */}
+          <div className="md:col-span-4 space-y-3">
+            <h2 className="text-2xl md:text-3xl font-light text-[#1a1a1a] tracking-tight font-serif">
+              Guiding Voices
             </h2>
-            
-            <p className="text-xs text-[#64748b] leading-relaxed">
-              Before drawing lines in digital CAD, architects must anchor their tectonic thought in the enduring philosophies of spatial light, human scale, and climatic responsibility.
+            <p className="text-xs text-[#555e68] leading-relaxed">
+              Philosophies that underpin our pedagogy and spatial studio exercises.
             </p>
-
-            <div className="pt-4 space-y-2">
+            <div className="flex flex-wrap gap-2 pt-2">
               {theorists.map((t, idx) => (
                 <button
                   key={t.id}
                   type="button"
-                  onClick={() => setActiveVoiceIndex(idx)}
-                  className={`w-full text-left px-4 py-3 border text-xs font-mono transition-all flex items-center justify-between cursor-pointer ${
+                  onClick={() => handleSelectVoice(idx)}
+                  className={`px-3 py-1.5 text-xs font-mono border transition-all cursor-pointer ${
                     activeVoiceIndex === idx
                       ? "bg-[#155995] text-white border-[#155995] font-semibold"
-                      : "bg-white text-[#475569] border-[#dbe2e8] hover:border-[#155995]"
+                      : "bg-white text-[#555] border-[#dbe2e8] hover:border-[#155995]"
                   }`}
                 >
-                  <div className="flex items-center gap-3">
-                    <span className={activeVoiceIndex === idx ? "text-[#93c5fd]" : "text-[#155995] font-bold"}>
-                      {t.id}
-                    </span>
-                    <span>{t.name}</span>
-                  </div>
-                  <span className="text-[10px] opacity-80">{t.concept}</span>
+                  {t.name}
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Right 8 Columns: Active Philosophy Quote Panel */}
-          <div className="lg:col-span-8 bg-white border border-[#dbe2e8] p-8 sm:p-12 space-y-8 flex flex-col justify-between min-h-[380px]">
+          {/* Right Column: Active Quote Card with 30s Auto-Slide Progress Bar */}
+          <div 
+            onMouseEnter={() => setIsQuotePaused(true)}
+            onMouseLeave={() => setIsQuotePaused(false)}
+            className="md:col-span-8 bg-white p-8 md:p-10 border border-[#dbe2e8] space-y-6 relative overflow-hidden flex flex-col justify-between min-h-[260px]"
+          >
+            {/* 30-Second Architectural Progress Bar */}
+            <div className="absolute top-0 left-0 w-full h-[2px] bg-[#f1f5f9] overflow-hidden">
+              <div
+                key={quoteTimerKey}
+                className="h-full bg-[#155995]"
+                style={{
+                  animation: isQuotePaused ? "none" : "quoteProgressBar 30s linear forwards",
+                  width: isQuotePaused ? "100%" : undefined
+                }}
+              />
+            </div>
+
             <div className="space-y-4">
-              <div className="flex items-center justify-between border-b border-[#e2e8f0] pb-3">
-                <span className="text-xs font-mono text-[#155995] uppercase tracking-wider font-bold">
+              <div className="flex items-center justify-between">
+                <div className="text-xs font-mono text-[#155995] uppercase tracking-wider font-semibold">
                   {theorists[activeVoiceIndex].tag}
-                </span>
-                <span className="text-xs font-mono text-[#64748b]">
-                  TECTONIC AXIOM {theorists[activeVoiceIndex].id} / 05
-                </span>
+                </div>
+                <div className="text-[10px] font-mono text-[#64748b] uppercase tracking-wider flex items-center gap-1.5">
+                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#155995] animate-pulse"></span>
+                  <span>30s interval</span>
+                </div>
               </div>
 
-              <blockquote className="text-2xl sm:text-3xl font-serif italic text-[#1e293b] leading-relaxed pt-2">
+              <blockquote className="text-xl md:text-2xl font-serif italic text-[#1a1a1a] leading-relaxed transition-opacity duration-300">
                 &ldquo;{theorists[activeVoiceIndex].quote}&rdquo;
               </blockquote>
             </div>
 
-            <div className="pt-6 border-t border-[#f1f5f9] flex flex-wrap items-center justify-between gap-4 text-xs">
-              <div className="space-y-1">
-                <p className="font-semibold text-[#1e293b]">{theorists[activeVoiceIndex].name}</p>
-                <p className="text-[#64748b]">{theorists[activeVoiceIndex].context}</p>
+            <div className="pt-4 border-t border-[#f0f3f6] flex items-center justify-between text-xs text-[#555]">
+              <div>
+                <strong className="text-[#1a1a1a]">{theorists[activeVoiceIndex].name}</strong>
+                <span className="text-[#555e68] ml-2">&bull; {theorists[activeVoiceIndex].context}</span>
               </div>
-              <div className="font-mono text-[11px] text-[#155995] bg-[#f8fafc] border border-[#dbe2e8] px-3 py-1">
-                STUDIO APPLICATION &bull; LEVEL 1-5
-              </div>
+              <span className="font-mono text-[#155995] font-semibold">{theorists[activeVoiceIndex].id} / 05</span>
             </div>
           </div>
 

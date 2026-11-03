@@ -245,6 +245,15 @@
   border-color: #cbd5e1;
 }
 
+@keyframes quoteProgressBar {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
 /* Editorial Minimal Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

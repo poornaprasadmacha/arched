@@ -4,7 +4,17 @@ All notable architectural and technical changes to this project are recorded chr
 
 ---
 
-## [Pure Text Typography Logo Implementation] — 2026-11-03
+## [Guiding Voices 30-Second Auto-Slide Carousel] — 2026-11-03
+### Added & Updated
+- **30-Second Auto-Slide Rotation Engine (`app/page.tsx`, `app/globals.css`)**:
+  - Implemented an automated 30,000ms timer interval that cycles through the 5 master architectural quotes (*Le Corbusier, Norman Foster, Nari Gandhi, B.V. Doshi, and Raj Rewal*).
+  - Integrated a sleek 2px hairline architectural progress indicator bar (`@keyframes quoteProgressBar`) along the top edge of the quote card that fills continuously over exactly 30 seconds.
+  - Interactive manual selection: Clicking any theorist immediately switches the active slide and resets the 30-second interval cleanly.
+  - Hover freeze protection: Pauses the timer and progress bar when a user mouses over the quote to read it without disruption.
+  - Perfectly matched layout from screenshot: "Guiding Voices" title, two-row wrapped monospace button layout, active steel blue highlight, and verbatim contextual descriptions.
+- **Verification**:
+  - Full production build: 26/26 routes compiled cleanly with 0 errors (`next build` & `opennextjs-cloudflare build`).
+  - Integration test suite: **42/42 tests PASSED (100% success rate)**.
 ### Updated
 - **Transitioned Brand Mark to 100% Pure Semantic Text (`components/ArchedLogo.tsx`)**:
   - Completely removed all SVG graphic vectors, paths, and image elements.

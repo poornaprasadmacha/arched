@@ -1,0 +1,261 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --radius: 0.25rem;
+  --paper: #F5F1EA;
+  --ink: #1C1917;
+  --bronze: #B87B4E;
+  --bronze-soft: #CBB29C;
+  --rule: #DDD6CC;
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: #FAF8F5;
+  --card-foreground: var(--ink);
+  --popover: #FAF8F5;
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--paper);
+  --secondary: #EAE5DC;
+  --secondary-foreground: var(--ink);
+  --muted: #EAE5DC;
+  --muted-foreground: #736B63;
+  --accent: var(--bronze);
+  --accent-foreground: var(--paper);
+  --border: var(--rule);
+  --input: #DDD6CC;
+  --ring: var(--bronze);
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    /* STRICT NO SHADOWS RULE ENFORCEMENT */
+    box-shadow: none !important;
+    text-shadow: none !important;
+    filter: none !important;
+  }
+
+  body {
+    background-color: #F5F1EA;
+    color: #1C1917;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-editorial, .font-display {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    letter-spacing: -0.015em;
+  }
+}
+
+/* Eyebrow Label */
+.eyebrow {
+  font-family: 'JetBrains Mono', Courier New, monospace;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  line-height: 1.4;
+}
+
+/* Architectural Display Typography */
+.display-xl {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  letter-spacing: -0.02em;
+  font-size: clamp(2.75rem, 7vw, 6rem);
+  font-weight: 300;
+  line-height: 0.98;
+}
+
+.display-lg {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  letter-spacing: -0.015em;
+  font-size: clamp(2rem, 4.5vw, 3.75rem);
+  font-weight: 300;
+  line-height: 1.05;
+}
+
+.display-md {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  letter-spacing: -0.01em;
+  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+/* Blueprint Pattern Background */
+.pattern-blueprint {
+  background-image: 
+    linear-gradient(to right, #DDD6CC 1px, transparent 1px),
+    linear-gradient(to bottom, #DDD6CC 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+.dark-pattern-blueprint {
+  background-image: 
+    linear-gradient(to right, rgba(245, 241, 234, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(245, 241, 234, 0.08) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* Dots Pattern Background */
+.pattern-dots {
+  background-image: radial-gradient(#1C1917 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Diagonal Grid */
+.pattern-diagonal {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(245, 241, 234, 0.05) 0,
+    rgba(245, 241, 234, 0.05) 1px,
+    transparent 0,
+    transparent 20px
+  );
+}
+
+/* Fade Masks */
+.mask-fade-edges {
+  -webkit-mask-image: radial-gradient(#000 40%, transparent 78%);
+  mask-image: radial-gradient(#000 40%, transparent 78%);
+}
+
+.mask-fade-b {
+  -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+}
+
+/* Precision Architectural Lines */
+.arch-border {
+  border: 1px solid #DDD6CC;
+}
+
+.arch-border-b {
+  border-bottom: 1px solid #DDD6CC;
+}
+
+.arch-border-t {
+  border-top: 1px solid #DDD6CC;
+}
+
+.arch-border-r {
+  border-right: 1px solid #DDD6CC;
+}
+
+.arch-border-l {
+  border-left: 1px solid #DDD6CC;
+}
+
+/* Container Standard */
+.container-page {
+  width: 100%;
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .container-page {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+/* Marquee Keyframes */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Gradual Silver Polish & Metallic Sheen Animation */
+@keyframes silverPolishGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.bg-silver-polish {
+  background: linear-gradient(
+    125deg,
+    #ffffff 0%,
+    #f8f9fa 15%,
+    #edf1f6 35%,
+    #e2e8f0 50%,
+    #edf2f7 65%,
+    #f6f8fb 85%,
+    #ffffff 100%
+  );
+  background-size: 240% 240%;
+  animation: silverPolishGradient 20s ease infinite;
+}
+
+.bg-silver-sheen {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(244, 247, 250, 0.92) 30%,
+    rgba(235, 240, 246, 0.88) 60%,
+    rgba(250, 252, 255, 0.95) 100%
+  );
+  background-size: 200% 200%;
+  animation: silverPolishGradient 16s ease infinite;
+}
+
+.bg-silver-brushed {
+  background: linear-gradient(
+    90deg,
+    #f4f6f9 0%,
+    #e9eef3 25%,
+    #dfe5ec 50%,
+    #eaf0f5 75%,
+    #f4f6f9 100%
+  );
+  background-size: 200% 100%;
+  animation: silverPolishGradient 14s ease infinite;
+}
+
+.silver-border {
+  border-color: #dbe2e8;
+}
+
+.silver-border-strong {
+  border-color: #cbd5e1;
+}
+
+/* Editorial Minimal Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F5F1EA;
+}
+::-webkit-scrollbar-thumb {
+  background: #DDD6CC;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B87B4E;
+}

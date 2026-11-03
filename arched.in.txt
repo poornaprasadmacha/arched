@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>arched.in — Under Construction</title>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      min-height: 100vh;
+      background: #070a12;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      overflow-x: hidden;
+      padding: 1.5rem 2rem;
+    }
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(0, 229, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .bg-vignette {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 30% 50%, rgba(0, 229, 255, 0.04) 0%, #070a12 85%);
+      z-index: 0;
+      pointer-events: none;
+    }
+    header {
+      position: relative;
+      z-index: 30;
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      user-select: none;
+    }
+    .brand-logo {
+      font-size: clamp(2rem, 4vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: 0.35em;
+      text-transform: lowercase;
+      color: #ffffff;
+      text-shadow: 0 0 25px rgba(0, 229, 255, 0.35);
+    }
+    .brand-logo span {
+      color: #00e5ff;
+    }
+    .tagline {
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-top: 0.3rem;
+    }
+    main {
+      position: relative;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: 1fr 450px;
+      align-items: center;
+      gap: 2rem;
+      width: 100%;
+      max-width: 1200px;
+      flex-grow: 1;
+      margin: 1rem 0;
+    }
+    #canvas-container {
+      width: 100%;
+      height: 520px;
+      position: relative;
+      cursor: grab;
+    }
+    #canvas-container:active {
+      cursor: grabbing;
+    }
+    .content-overlay {
+      position: relative;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      padding: 2.5rem;
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(0, 229, 255, 0.18);
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1.1rem;
+      border-radius: 9999px;
+      background: rgba(0, 229, 255, 0.08);
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #00e5ff;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 0 15px rgba(0, 229, 255, 0.15);
+    }
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      background-color: #00e5ff;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #00e5ff;
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.8); }
+    }
+    h1 {
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+      background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      color: #94a3b8;
+      font-size: 1rem;
+      line-height: 1.65;
+      margin-bottom: 0.5rem;
+    }
+
+    .hint-text {
+      font-size: 0.68rem;
+      color: #475569;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 1rem;
+    }
+    footer {
+      position: relative;
+      z-index: 30;
+      width: 100%;
+      max-width: 1200px;
+      font-size: 0.75rem;
+      color: #475569;
+      letter-spacing: 0.08em;
+      text-align: left;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        padding: 1.5rem 1rem;
+        overflow-y: auto;
+      }
+
+      header {
+        align-items: center;
+        text-align: center;
+      }
+
+      main {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        height: auto;
+      }
+
+      #canvas-container {
+        height: 380px;
+      }
+
+      .content-overlay {
+        align-items: center;
+        text-align: center;
+        padding: 1.8rem;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+  <div class="bg-vignette"></div>
+  <header>
+    <div class="brand-logo">arch<span>ed</span>.in</div>
+    <div class="tagline">Architecture &amp; Spatial Design</div>
+  </header>
+  <main>
+    <div id="canvas-container"></div>
+
+    <!-- Text Box Overlay (Right Side on Laptop, Below on Mobile) -->
+    <div class="content-overlay">
+      <div class="status-badge">
+        <span class="pulse-dot"></span> Structural Phase in Progress
+      </div>
+      <h1>Constructing Something Iconic</h1>
+      <p>Our official digital studio is currently under construction. We are crafting a new blueprint for spatial experiences.</p>
+
+    </div>
+  </main>
+  <footer>
+    &copy; 2026 arched.in | All Rights Reserved.
+  </footer>
+  <script>
+    const container = document.getElementById('canvas-container');
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x070a12, 0.018);
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+    camera.position.set(0, 14, 26);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    container.appendChild(renderer.domElement);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.target.set(0, 7.5, 0); // Focus camera vertically on center of building
+    controls.maxPolarAngle = Math.PI / 2 - 0.02;
+    controls.minDistance = 14;
+    controls.maxDistance = 40;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 1.0;
+
+    const towerGroup = new THREE.Group();
+    towerGroup.position.y = -3.5;
+    scene.add(towerGroup);
+
+    const tiersData = [
+      { rBot: 2.6, rTop: 2.1, h: 3.5, y: 1.75, sides: 6 },  // Tier 1 Base
+      { rBot: 2.1, rTop: 1.6, h: 3.5, y: 5.25, sides: 6 },  // Tier 2 Lower
+      { rBot: 1.6, rTop: 1.2, h: 3.5, y: 8.75, sides: 6 },  // Tier 3 Mid
+      { rBot: 1.2, rTop: 0.8, h: 3.0, y: 12.0, sides: 6 },  // Tier 4 Upper
+      { rBot: 0.8, rTop: 0.4, h: 2.5, y: 14.75, sides: 6 }, // Tier 5 Crown
+      { rBot: 0.4, rTop: 0.15, h: 2.0, y: 17.0, sides: 6 }, // Spire Platform
+      { rBot: 0.08, rTop: 0.01, h: 3.5, y: 19.75, sides: 4 } // Central Spire Needle
+    ];
+
+    const towerMeshes = [];
+
+    tiersData.forEach((t) => {
+      const geom = new THREE.CylinderGeometry(t.rTop, t.rBot, t.h, t.sides, 6);
+      
+      const faceMat = new THREE.MeshBasicMaterial({
+        color: 0x00e5ff,
+        transparent: true,
+        opacity: 0.08,
+        wireframe: false,
+        side: THREE.DoubleSide
+      });
+
+      const wireframeMat = new THREE.LineBasicMaterial({
+        color: 0x00e5ff,
+        transparent: true,
+        opacity: 0.85
+      });
+
+      const mesh = new THREE.Mesh(geom, faceMat);
+      const wireframe = new THREE.LineSegments(new THREE.WireframeGeometry(geom), wireframeMat);
+      
+      mesh.add(wireframe);
+      mesh.position.y = t.y;
+      
+      mesh.userData = { 
+        targetY: t.y, 
+        height: t.h
+      };
+
+      towerGroup.add(mesh);
+      towerMeshes.push(mesh);
+    });
+
+    const gridHelper = new THREE.GridHelper(24, 24, 0x00e5ff, 0x1e293b);
+    gridHelper.position.y = -3.5;
+    scene.add(gridHelper);
+    const laserGroup = new THREE.Group();
+    laserGroup.position.y = -3.5;
+    const ringGeom = new THREE.RingGeometry(0.1, 4.2, 64);
+    const ringMat = new THREE.MeshBasicMaterial({ 
+      color: 0x00e5ff, 
+      side: THREE.DoubleSide, 
+      transparent: true, 
+      opacity: 0.45 
+    });
+    const laserRing = new THREE.Mesh(ringGeom, ringMat);
+    laserRing.rotation.x = Math.PI / 2;
+    laserGroup.add(laserRing);
+    scene.add(laserGroup);
+    const particleCount = 180;
+    const particleGeom = new THREE.BufferGeometry();
+    const particlePositions = new Float32Array(particleCount * 3);
+
+    for (let i = 0; i < particleCount * 3; i += 3) {
+      particlePositions[i] = (Math.random() - 0.5) * 25;
+      particlePositions[i + 1] = Math.random() * 24 - 3.5;
+      particlePositions[i + 2] = (Math.random() - 0.5) * 25;
+    }
+
+    particleGeom.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+    const particleMat = new THREE.PointsMaterial({
+      color: 0x00e5ff,
+      size: 0.12,
+      transparent: true,
+      opacity: 0.45
+    });
+    const particles = new THREE.Points(particleGeom, particleMat);
+    scene.add(particles);
+    let progress = 0;
+    const loopDuration = 6.5;
+    const clock = new THREE.Clock();
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      const delta = clock.getDelta();
+      progress = (progress + delta / loopDuration) % 1;
+
+      controls.update();
+
+      const positions = particles.geometry.attributes.position.array;
+      for (let i = 1; i < particleCount * 3; i += 3) {
+        positions[i] += delta * 0.4;
+        if (positions[i] > 22) positions[i] = -3.5;
+      }
+      particles.geometry.attributes.position.needsUpdate = true;
+      const maxTowerHeight = 22.5;
+      const currentLaserY = progress * maxTowerHeight;
+      laserGroup.position.y = -3.5 + currentLaserY;
+
+      ringMat.opacity = 0.3 + Math.sin(progress * Math.PI * 4) * 0.15;
+
+      towerMeshes.forEach((mesh) => {
+        const meshBottom = mesh.userData.targetY - mesh.userData.height / 2;
+
+        if (currentLaserY >= meshBottom) {
+          mesh.visible = true;
+          const growth = Math.min(1, Math.max(0, (currentLaserY - meshBottom) / mesh.userData.height));
+          mesh.scale.set(growth, growth, growth);
+        } else {
+          mesh.visible = false;
+        }
+      });
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    });
+  </script>
+</body>
+</html>

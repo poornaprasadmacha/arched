@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 interface LogoProps {
@@ -9,11 +11,10 @@ interface LogoProps {
 }
 
 /**
- * ArchEd Logo — Exact brand mark matching the user's architectural editorial identity.
- * Features:
- * - "Arch" in deep architectural charcoal (#383a3b)
- * - "Ed" in signature steel blue (#155995)
- * - Scalable vector paths with high-contrast light theme variants.
+ * ArchEd Pure Text Logo
+ * Semantic, accessible, and 100% vector typography (zero image or SVG graphic dependencies).
+ * - "Arch" in deep architectural charcoal (#383a3b / #ffffff on dark)
+ * - "Ed" in signature architectural steel blue (#155995 / #38bdf8 on dark)
  */
 export default function ArchedLogo({
   className = "",
@@ -21,54 +22,44 @@ export default function ArchedLogo({
   showDomain = false,
   theme = "charcoal",
 }: LogoProps) {
-  const sizeMap = {
-    sm: { width: 88, height: 24, text: "text-lg" },
-    md: { width: 118, height: 32, text: "text-xl" },
-    lg: { width: 151, height: 41, text: "text-2xl" },
-    xl: { width: 198, height: 54, text: "text-3xl" },
+  // Size typography scale
+  const sizeClasses = {
+    sm: "text-lg",       // ~18px
+    md: "text-2xl",      // ~24px
+    lg: "text-3xl",      // ~30px
+    xl: "text-4xl sm:text-5xl", // ~36-48px
   };
 
-  const currentSize = sizeMap[size];
-
-  // Colors based on theme:
-  // On light background (charcoal/dark): Arch is #383a3b, Ed is #155995
-  // On dark background (light theme): Arch is #ffffff, Ed is #38bdf8 (vibrant architectural blue)
+  // Color mapping based on context background
+  // On dark background (theme="light"): Arch is white, Ed is light steel blue
+  // On light background (theme="charcoal" or "dark"): Arch is charcoal, Ed is steel blue
   const isDarkBackground = theme === "light";
-  const archFill = isDarkBackground ? "#ffffff" : "#383a3b";
-  const edFill = isDarkBackground ? "#38bdf8" : "#155995";
-  const domainText = isDarkBackground ? "text-neutral-400" : "text-neutral-500";
-
-  // Exact vector paths extracted from the official ArchEd identity mark
-  const archPath =
-    "M18,3h1v1h-1zM75,3h5v1h-5zM17,4h3v1h-3zM75,4h6v1h-6zM17,5h3v1h-3zM75,5h6v1h-6zM16,6h5v1h-5zM75,6h6v1h-6zM16,7h5v1h-5zM75,7h6v1h-6zM15,8h7v1h-7zM75,8h6v1h-6zM15,9h7v1h-7zM75,9h6v1h-6zM14,10h9v1h-9zM75,10h6v1h-6zM14,11h9v1h-9zM75,11h6v1h-6zM13,12h11v1h-11zM75,12h6v1h-6zM13,13h11v1h-11zM75,13h6v1h-6zM12,14h13v1h-13zM47,14h3v1h-3zM60,14h5v1h-5zM75,14h6v1h-6zM86,14h5v1h-5zM12,15h6v1h-6zM19,15h6v1h-6zM37,15h5v1h-5zM45,15h6v1h-6zM57,15h11v1h-11zM75,15h6v1h-6zM83,15h10v1h-10zM11,16h6v1h-6zM20,16h6v1h-6zM37,16h5v1h-5zM43,16h8v1h-8zM55,16h15v1h-15zM75,16h6v1h-6zM82,16h11v1h-11zM11,17h6v1h-6zM20,17h6v1h-6zM37,17h14v1h-14zM53,17h18v1h-18zM75,17h18v1h-18zM10,18h6v1h-6zM21,18h6v1h-6zM37,18h14v1h-14zM52,18h20v1h-20zM75,18h18v1h-18zM10,19h6v1h-6zM21,19h6v1h-6zM37,19h10v1h-10zM51,19h8v1h-8zM66,19h7v1h-7zM75,19h10v1h-10zM89,19h4v1h-4zM9,20h6v1h-6zM22,20h6v1h-6zM37,20h8v1h-8zM51,20h6v1h-6zM67,20h6v1h-6zM75,20h8v1h-8zM90,20h3v1h-3zM9,21h6v1h-6zM22,21h6v1h-6zM37,21h7v1h-7zM50,21h6v1h-6zM68,21h4v1h-4zM75,21h7v1h-7zM91,21h2v1h-2zM9,22h5v1h-5zM23,22h6v1h-6zM37,22h6v1h-6zM50,22h5v1h-5zM69,22h2v1h-2zM75,22h7v1h-7zM92,22h1v1h-1zM8,23h6v1h-6zM23,23h6v1h-6zM37,23h6v1h-6zM49,23h6v1h-6zM75,23h6v1h-6zM92,23h1v1h-1zM8,24h5v1h-5zM24,24h6v1h-6zM37,24h6v1h-6zM49,24h5v1h-5zM75,24h6v1h-6zM92,24h1v1h-1zM7,25h6v1h-6zM24,25h6v1h-6zM37,25h6v1h-6zM49,25h5v1h-5zM75,25h6v1h-6zM92,25h1v1h-1zM7,26h6v1h-6zM14,26h17v1h-17zM37,26h5v1h-5zM49,26h5v1h-5zM75,26h6v1h-6zM92,26h1v1h-1zM6,27h6v1h-6zM13,27h18v1h-18zM37,27h5v1h-5zM49,27h5v1h-5zM75,27h6v1h-6zM92,27h1v1h-1zM6,28h6v1h-6zM13,28h19v1h-19zM37,28h5v1h-5zM49,28h5v1h-5zM75,28h6v1h-6zM92,28h1v1h-1zM5,29h6v1h-6zM26,29h6v1h-6zM37,29h5v1h-5zM49,29h5v1h-5zM75,29h6v1h-6zM92,29h1v1h-1zM5,30h6v1h-6zM27,30h6v1h-6zM37,30h5v1h-5zM49,30h6v1h-6zM75,30h6v1h-6zM92,30h1v1h-1zM4,31h6v1h-6zM27,31h6v1h-6zM37,31h5v1h-5zM50,31h5v1h-5zM75,31h6v1h-6zM92,31h1v1h-1zM4,32h6v1h-6zM28,32h6v1h-6zM37,32h5v1h-5zM50,32h6v1h-6zM69,32h3v1h-3zM75,32h6v1h-6zM92,32h1v1h-1zM3,33h6v1h-6zM28,33h6v1h-6zM37,33h5v1h-5zM50,33h7v1h-7zM68,33h5v1h-5zM75,33h6v1h-6zM92,33h1v1h-1zM3,34h6v1h-6zM29,34h5v1h-5zM37,34h5v1h-5zM51,34h7v1h-7zM66,34h7v1h-7zM75,34h6v1h-6zM92,34h1v1h-1zM2,35h6v1h-6zM29,35h6v1h-6zM37,35h5v1h-5zM52,35h9v1h-9zM63,35h9v1h-9zM75,35h6v1h-6zM92,35h1v1h-1zM2,36h6v1h-6zM29,36h6v1h-6zM37,36h5v1h-5zM53,36h18v1h-18zM75,36h6v1h-6zM92,36h1v1h-1zM1,37h6v1h-6zM30,37h6v1h-6zM37,37h5v1h-5zM54,37h16v1h-16zM75,37h6v1h-6zM92,37h1v1h-1zM1,38h6v1h-6zM30,38h6v1h-6zM37,38h5v1h-5zM56,38h13v1h-13zM75,38h6v1h-6zM92,38h1v1h-1zM58,39h8v1h-8z";
-
-  const edPath =
-    "M101,3h23v1h-23zM145,3h5v1h-5zM101,4h23v1h-23zM145,4h5v1h-5zM101,5h23v1h-23zM145,5h5v1h-5zM101,6h23v1h-23zM145,6h5v1h-5zM101,7h23v1h-23zM145,7h5v1h-5zM101,8h6v1h-6zM145,8h5v1h-5zM101,9h5v1h-5zM145,9h5v1h-5zM101,10h5v1h-5zM145,10h5v1h-5zM101,11h5v1h-5zM145,11h5v1h-5zM101,12h5v1h-5zM145,12h5v1h-5zM101,13h5v1h-5zM145,13h5v1h-5zM101,14h5v1h-5zM134,14h4v1h-4zM145,14h5v1h-5zM101,15h5v1h-5zM131,15h10v1h-10zM145,15h5v1h-5zM93,16h2v1h-2zM101,16h5v1h-5zM129,16h14v1h-14zM145,16h5v1h-5zM93,17h2v1h-2zM101,17h5v1h-5zM128,17h16v1h-16zM145,17h5v1h-5zM93,18h3v1h-3zM101,18h6v1h-6zM127,18h23v1h-23zM93,19h4v1h-4zM101,19h20v1h-20zM126,19h7v1h-7zM140,19h10v1h-10zM93,20h4v1h-4zM101,20h20v1h-20zM125,20h7v1h-7zM142,20h8v1h-8zM93,21h4v1h-4zM101,21h20v1h-20zM125,21h6v1h-6zM143,21h7v1h-7zM93,22h5v1h-5zM101,22h20v1h-20zM124,22h6v1h-6zM143,22h7v1h-7zM93,23h5v1h-5zM101,23h20v1h-20zM124,23h6v1h-6zM144,23h6v1h-6zM93,24h5v1h-5zM101,24h5v1h-5zM124,24h5v1h-5zM144,24h6v1h-6zM93,25h5v1h-5zM101,25h5v1h-5zM123,25h6v1h-6zM145,25h5v1h-5zM93,26h5v1h-5zM101,26h5v1h-5zM123,26h6v1h-6zM145,26h5v1h-5zM93,27h5v1h-5zM101,27h5v1h-5zM123,27h6v1h-6zM145,27h5v1h-5zM93,28h5v1h-5zM101,28h5v1h-5zM123,28h6v1h-6zM145,28h5v1h-5zM93,29h5v1h-5zM101,29h5v1h-5zM124,29h5v1h-5zM145,29h5v1h-5zM93,30h5v1h-5zM101,30h5v1h-5zM124,30h5v1h-5zM144,30h6v1h-6zM93,31h5v1h-5zM101,31h5v1h-5zM124,31h6v1h-6zM144,31h6v1h-6zM93,32h5v1h-5zM101,32h5v1h-5zM124,32h6v1h-6zM143,32h7v1h-7zM93,33h5v1h-5zM101,33h5v1h-5zM125,33h6v1h-6zM142,33h8v1h-8zM93,34h5v1h-5zM101,34h22v1h-22zM125,34h8v1h-8zM141,34h9v1h-9zM93,35h5v1h-5zM101,35h23v1h-23zM126,35h9v1h-9zM138,35h12v1h-12zM93,36h5v1h-5zM101,36h23v1h-23zM127,36h23v1h-23zM93,37h5v1h-5zM101,37h23v1h-23zM128,37h15v1h-15zM145,37h5v1h-5zM93,38h5v1h-5zM101,38h23v1h-23zM130,38h12v1h-12zM145,38h5v1h-5zM133,39h7v1h-7z";
+  const archColorClass = isDarkBackground ? "text-white" : "text-[#383a3b]";
+  const edColorClass = isDarkBackground ? "text-[#38bdf8]" : "text-[#155995]";
+  const domainColorClass = isDarkBackground ? "text-slate-400" : "text-[#7f8c8d]";
 
   return (
-    <div className={`inline-flex items-center gap-2 select-none ${className}`}>
-      {/* Exact Vector ArchEd Mark */}
-      <svg
-        width={currentSize.width}
-        height={currentSize.height}
-        viewBox="0 0 151 41"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="shrink-0 transition-opacity duration-200 hover:opacity-90"
-        aria-label="ArchEd Logo"
-      >
-        <path d={archPath} fill={archFill} />
-        <path d={edPath} fill={edFill} />
-      </svg>
+    <span
+      className={`inline-flex items-baseline font-sans font-bold tracking-tight select-none leading-none ${sizeClasses[size]} ${className}`}
+      aria-label="ArchEd Logo"
+      role="img"
+    >
+      {/* "Arch" in architectural charcoal or white */}
+      <span className={`${archColorClass} font-extrabold tracking-[-0.03em] transition-colors`}>
+        Arch
+      </span>
 
-      {/* Optional Domain Tag (.in) */}
+      {/* "Ed" in signature steel blue */}
+      <span className={`${edColorClass} font-extrabold tracking-[-0.03em] transition-colors`}>
+        Ed
+      </span>
+
+      {/* Optional .in domain suffix */}
       {showDomain && (
-        <span
-          className={`font-mono text-[10px] tracking-wider uppercase ${domainText} -ml-1 mt-1`}
-        >
+        <span className={`font-mono font-medium text-[10px] tracking-widest uppercase ml-1 ${domainColorClass}`}>
           .in
         </span>
       )}
-    </div>
+    </span>
   );
 }
